@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import CountryDetail from "./Components/CountryDetail";
+import './Styles/main.scss';
 
 function App() {
   const [allCountriesNames, setAllCountriesNames] = useState([]);
-  const [countryInput, setCountryInput] = useState();
+  const [countryInput, setCountryInput] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+
+  const [currentCountry, setCurrentCountry] = useState([]);
 
   useEffect(() => {
     axios.get('https://restcountries.eu/rest/v2/all')
@@ -33,24 +37,40 @@ function App() {
   }
 
   return (
-    <>
-      <div>
-        <input
-          type="text"
-          onChange={e => onChangeHandler(e.currentTarget.value)}
-          value={countryInput}
-        />
-        {
-          suggestions && suggestions.map((suggestion, index) => {
-            return (
-              <p key={index} onClick={() => onClickHandler(suggestion.name)}>{suggestion.name}</p>
-            )
-          })
-        }
+    <div className="body">
+      <div className="sidebar">
+        <div className="sidebar__form">
+          <input
+            className="sidebar__form--input"
+            type="text"
+            onChange={e => onChangeHandler(e.currentTarget.value)}
+            value={countryInput.name}
+          />
+          <div className="sidebar__form--suggestions">
+            {
+              suggestions && suggestions.map((suggestion, index) => {
+                return (
+                  <p className="sidebar__form--suggestions-item" key={index} onClick={() => onClickHandler(suggestion)}>{suggestion.name}</p>
+                )
+              })
+            }
+          </div>
+        </div>
+        <button className="sidebar__button" onClick={() => setCurrentCountry(countryInput)}>Go</button>
       </div>
-      <button>Submit</button>
-    </>
+      <div className="main">
+        {
+          currentCountry ? (
+            <CountryDetail country={currentCountry} />
+          ) : (
+            <p>No Country Selected.</p>
+          )
+        }
+        
+      </div>
+    </div>
   );
 }
 
 export default App;
+
