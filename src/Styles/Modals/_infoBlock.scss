@@ -1,0 +1,21 @@
+.block {
+  margin-right: 4rem;
+
+  .block__title {
+    font-size: 1.8rem;
+    font-family: 'Airbnb Cereal App Medium';
+  }
+
+  .block__list {
+    max-height: 10rem;
+    overflow: scroll;
+    margin-top: 1rem;
+    border: 0.1rem solid black;
+    padding: 1rem;
+
+    .block__list--item {
+      margin: 1rem 0;
+      font-size: 1.8rem;
+    }
+  }
+}

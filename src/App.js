@@ -12,6 +12,7 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
 
   const [currentCountry, setCurrentCountry] = useState([]);
+  const [currentCountryPop, setCurrentCountryPop] = useState([]);
 
   useEffect(() => {
     axios.get('https://restcountries.eu/rest/v2/all')
@@ -39,6 +40,20 @@ function App() {
     setCountryInput(inputValue);
   }
 
+  const handleBtnClick = () => {
+    setCurrentCountry(countryInput);
+
+    axios.get('https://countriesnow.space/api/v0.1/countries/population')
+      .then(function (response) {
+        const result = response.data.data.filter(country => country.country === countryInput.name);
+        if (result[0] !== undefined) {
+          setCurrentCountryPop(result[0].populationCounts);
+        } else {
+          setCurrentCountryPop([]);
+        }
+      })
+  }
+
   return (
     <div className="body">
       <Sidebar>
@@ -59,9 +74,9 @@ function App() {
             }
           </SuggestionsList>
         </div>
-        <button className="sidebar__button" onClick={() => setCurrentCountry(countryInput)}>Go</button>
+        <button className="sidebar__button" onClick={() => handleBtnClick()}>Go</button>
       </Sidebar>
-      <InfoTable country={currentCountry} />
+      <InfoTable country={currentCountry} pop={currentCountryPop} />
     </div>
   );
 }

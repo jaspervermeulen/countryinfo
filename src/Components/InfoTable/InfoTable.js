@@ -1,12 +1,13 @@
 import React from "react";
 import CountryDetail from "./CountryDetail";
 
-const InfoTable = ({country}) => {
+const InfoTable = ({country, pop}) => {
   return (
     <div className="main">
       {
         country ? (
-          <CountryDetail country={country} />
+          <CountryDetail country={country} pop={pop} />
+          
         ) : (
           <p>No Country Selected.</p>
         )
