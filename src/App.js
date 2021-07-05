@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CountryDetail from "./Components/CountryDetail";
+import InfoTable from "./Components/InfoTable/InfoTable";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import Suggestion from "./Components/Sidebar/Suggestion";
+import SuggestionsList from "./Components/Sidebar/SuggestionsList";
 import './Styles/main.scss';
 
 function App() {
@@ -38,7 +41,7 @@ function App() {
 
   return (
     <div className="body">
-      <div className="sidebar">
+      <Sidebar>
         <div className="sidebar__form">
           <input
             className="sidebar__form--input"
@@ -46,28 +49,19 @@ function App() {
             onChange={e => onChangeHandler(e.currentTarget.value)}
             value={countryInput.name}
           />
-          <div className="sidebar__form--suggestions">
+          <SuggestionsList>
             {
               suggestions && suggestions.map((suggestion, index) => {
                 return (
-                  <p className="sidebar__form--suggestions-item" key={index} onClick={() => onClickHandler(suggestion)}>{suggestion.name}</p>
+                  <Suggestion name={suggestion.name} key={index} onClick={() => onClickHandler(suggestion)} />
                 )
               })
             }
-          </div>
+          </SuggestionsList>
         </div>
         <button className="sidebar__button" onClick={() => setCurrentCountry(countryInput)}>Go</button>
-      </div>
-      <div className="main">
-        {
-          currentCountry ? (
-            <CountryDetail country={currentCountry} />
-          ) : (
-            <p>No Country Selected.</p>
-          )
-        }
-        
-      </div>
+      </Sidebar>
+      <InfoTable country={currentCountry} />
     </div>
   );
 }

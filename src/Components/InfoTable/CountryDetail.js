@@ -1,4 +1,5 @@
 import React from "react";
+import CountryInfoBlock from "./CountryInfoBlock";
 
 const CountryDetail = ({ country }) => {
   if (country.name === undefined) {
@@ -12,7 +13,7 @@ const CountryDetail = ({ country }) => {
       <>
         <div className="detail">
           <div className="detail-w">
-            <img className="detail__img" src={country.flag} />
+            <img className="detail__img" src={country.flag} alt={country.name} />
             <div className="detail__wrapper">
               <p className="detail__wrapper--title">{country.name}</p>
               <div className="detail__wrapper--info">
@@ -22,32 +23,14 @@ const CountryDetail = ({ country }) => {
             </div>
           </div>
           <div className="detail__info">
-            <div className="detail__info--item">
-              <p className="info__title">Alternative Spellings</p>
-              {
-                country.altSpellings.map((spelling, index) => {
-                  return (
-                    <p className="info__tag" key={index}>{spelling}</p>
-                  )
-                })
-              }
-            </div>
-            {
-              country.borders.length === 0 ? (
-                <></>
-              ) : (
-                <div className="detail__info--item">
-                  <p className="info__title">Borders</p>
-                  {
-                    country.borders.map((border, index) => {
-                      return (
-                        <p className="info__tag" key={index}>{border}</p>
-                      )
-                    })
-                  }
-                </div>
-              )
-            }
+            <CountryInfoBlock
+              title="Alternative Spellings"
+              data={country.altSpellings}
+            />
+            <CountryInfoBlock
+              title="Borders"
+              data={country.borders}
+            />
             <div className="detail__info--item">
               <p className="info__title">Current population</p>
               <p className="info__tag">{country.population.toLocaleString()}</p>
