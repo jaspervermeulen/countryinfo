@@ -7,7 +7,6 @@ const InfoTable = ({country, pop}) => {
       {
         country ? (
           <CountryDetail country={country} pop={pop} />
-          
         ) : (
           <p>No Country Selected.</p>
         )

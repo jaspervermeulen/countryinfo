@@ -40,7 +40,7 @@ function App() {
     setCountryInput(inputValue);
   }
 
-  const handleBtnClick = () => {
+  const btnClickHandler = () => {
     setCurrentCountry(countryInput);
 
     axios.get('https://countriesnow.space/api/v0.1/countries/population')
@@ -74,7 +74,7 @@ function App() {
             }
           </SuggestionsList>
         </div>
-        <button className="sidebar__button" onClick={() => handleBtnClick()}>Go</button>
+        <button className="sidebar__button" onClick={() => btnClickHandler()}>Go</button>
       </Sidebar>
       <InfoTable country={currentCountry} pop={currentCountryPop} />
     </div>
